@@ -12,11 +12,12 @@ const Mural = (function(_render, Filtro){
         const urlsImagens = Cartao.pegaImagens(cartao)
         urlsImagens.forEach(url => {
             fetch(url).then(resposta => {
-                caches.open('ceep-imagens').then(cache => {
+                caches.open("ceep-imagens").then(cache => {
                     cache.put(url, resposta)
                 })
             })
         })
+
         cartao.on("mudanca.**", salvaCartoes)
         cartao.on("remocao", ()=>{
             cartoes = cartoes.slice(0)
@@ -61,7 +62,6 @@ const Mural = (function(_render, Filtro){
             salvaCartoes()
             cartao.on("mudanca.**", render)
             preparaCartao(cartao)
-            let listaImagens = Cartao.pegaImagens(cartao)
             render()
             return true
         } else {
